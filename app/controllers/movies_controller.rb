@@ -1,7 +1,8 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy, :destroy_tag]
   before_action :authenticate_user!, except: :index
-  before_action :filter_admin!, except:[:index, :show ]
+
+  load_and_authorize_resource
   # GET /movies
   # GET /movies.json
   def index
@@ -26,6 +27,7 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
+    @movie.user_id = current_user.id
     tags_ids = movie_params["tags_ids"].delete_if{ |x|
 x.empty? }
     @tags = Tag.find(tags_ids)

@@ -22,8 +22,10 @@
   </div>
 
   <div class="field">
-    <%= f.label :admin %>
-    <%= f.check_box :admin %>
+    <%= f.label :role %>
+    <%= f.select :role,  User.roles, :selected => User.roles[user.role] %>
+
+
   </div>
 
   <div class="actions">

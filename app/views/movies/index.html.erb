@@ -26,9 +26,15 @@
          <% end %>
          </ul>
         </td>
+        <% if can? :read, movie %>
         <td><%= link_to 'Show', movie %></td>
+        <% end %>
+        <% if can? :edit, movie %>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
+        <% end %>
+        <% if can? :destroy, movie %>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       
       </tr>
 

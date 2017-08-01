@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  
 
-  def filter_admin!
-    authenticate_user!
-    if(!current_user.admin?)
-      redirect_to root_path, alert: "no tienes acceso"
-    end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: :"Acceso denegado, no tienes permiso" 
   end
+  
 end
